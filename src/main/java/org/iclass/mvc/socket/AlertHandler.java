@@ -86,8 +86,12 @@ public class AlertHandler extends TextWebSocketHandler {
 
 			   log.info(">>>> 서비스 응답 writer : {}",response.get("writer"));
 			   log.info(">>>> 서비스 응답 result : {}",response.get("result"));
-		   }
 
+		   //응답 받은 writer 가 로그인 되어 있으면 1:1 메세지 보내기 -> map 에서 session 찾기
+		   WebSocketSession receiver = wsmap.get(response.get("writer"));
+		   if (receiver!=null)
+			   receiver.sendMessage(new TextMessage(response.get("result")));
+		   }	//좋아요 if 끝
 			
 	   } //handleTextMessage end
 	  

@@ -28,9 +28,13 @@ const socket_func = function(){
     //데이터를 받으면 실행되는 메소드
     function on_Message(message){   //message 인자는 서버에서 소켓통신으로 보낸 데이터 저장. 객체 타입.
         console.log('받은 데이터 : ' , message)
-
+        if (message.data.includes("alarm")){
+                const heartObj = JSON.parse(message.data)
+        if (heartObj.alarm != null)
+            document.querySelector('#message').innerHTML=heartObj.alarm
         //1-f. 받은 데이터를 header.html 에 출력하기. 받은 메시지 message 는 객체이고 이 중 data 프로퍼티값이 실제 내용.
-        document.querySelector('#message').innerHTML=message.data
+        }else
+            document.querySelector('#message').innerHTML=message.data
     }
 
 }  //socket_func() 함수 끝.
